@@ -22,7 +22,7 @@
     </header>
 
     <main>
-        @yield('container')
+        @yield('content')
     </main>
 
     <footer class="site-footer">
