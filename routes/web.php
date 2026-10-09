@@ -1,9 +1,11 @@
 <?php
 
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProdutoController;
 use App\Http\Controllers\OficinaController;
-use App\Models\User;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\EventoController;
 
 
 Route::get('/', function () {
@@ -11,7 +13,14 @@ Route::get('/', function () {
 });
 
 Route::view('/landing', 'landing');
-Route::view('/admin', 'admin.dashboard');
+
+Route::view('/admin', [UserController::class, 'index']);
+
+//rota para carregar o formulário (GET)
+Route::get('/usuarios/novo', [UserController::class, 'create']);
+
+//Rota para salvar os dados enviados (POST)
+Route::post('usuarios', [UserController::class, 'store']);
 
 Route::get('/teste-orm', function (){
     User::create([
@@ -29,4 +38,6 @@ Route::post('/produtos', [ProdutoController::class, 'store']);
 Route::get('/oficinas', [OficinaController::class, 'index']);
 Route::post('/oficinas', [OficinaController::class, 'store']);
 
-
+Route::get('/eventos', [EventoController::class, 'index']);
+Route::get('/eventos/novo', [EventoController::class, 'create']);
+Route::post('/eventos', [EventoController::class, 'store']);
